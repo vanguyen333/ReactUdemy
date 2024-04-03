@@ -1,15 +1,21 @@
+import { useState } from 'react';
 import { CORE_CONCEPTS } from './data.js';
 import Header from './components/Header/Header.jsx';
 import CoreConcept from './components/CoreConcept.jsx';
 import TabButton from './components/TabButton.jsx';
 
 function App() {
-
+//selectedTopic is the first element from the array which we get back from the useState
+// will be the current data snapshot(current state value provided by React, may change
+// if the component function is executed again) for this component execution cycle
+// setSelectedTopic:(state updating function): updates teh stored value &
+// tells React to re-execute the component function in which useState() was called
+  const [selectedTopic,setSelectedTopic]= useState('Please click a button')
   const tabContent = "Please click a button";
   function handleSelect(selectedBtn) {
     // selectedButton => 'components','jsx','props','state'
-    tabContent = selectedBtn;
-    console.log(tabContent);
+    setSelectedTopic(selectedBtn)
+    console.log(selectedTopic);
 }
 
 console.log('App Component Executing/Rendering')
@@ -42,7 +48,7 @@ console.log('App Component Executing/Rendering')
           <TabButton onSelect={()=>handleSelect('state')}>State</TabButton>
 
         </menu>
-       {tabContent}
+       {selectedTopic}
       </section>
       </main>
     </div>
