@@ -11,7 +11,19 @@ function App() {
 // setSelectedTopic:(state updating function): updates teh stored value &
 // tells React to re-execute the component function in which useState() was called
   const [selectedTopic,setSelectedTopic]= useState()
-  const tabContent = "Please click a button";
+  let tabContent = <p>Please select a topic.</p>
+  if(selectedTopic){
+    tabContent= 
+    <div id="tab-content">    
+        <h3>{EXAMPLES[selectedTopic].title}</h3>
+        <p>{EXAMPLES[selectedTopic].description}</p>
+        <pre>
+          <code>
+          {EXAMPLES[selectedTopic].code}
+          </code>
+        </pre>
+       </div>
+  }
   function handleSelect(selectedBtn) {
     // selectedButton => 'components','jsx','props','state'
     setSelectedTopic(selectedBtn)
@@ -48,8 +60,9 @@ console.log('App Component Executing/Rendering')
           <TabButton onSelect={()=>handleSelect('state')}>State</TabButton>
 
         </menu>
+        {tabContent}
         {/* first approach with && */}
-        {!selectedTopic && <p>Please select a topic.</p> } 
+        {/* {!selectedTopic && <p>Please select a topic.</p> } 
         
          {selectedTopic && 
          (<div id="tab-content">    
@@ -61,7 +74,7 @@ console.log('App Component Executing/Rendering')
           </code>
         </pre>
        </div>
-        ) }
+        ) } */}
         {/* second approach with ternary */}
         {/* {!selectedTopic ? (<p>Please select a topic.</p> ): 
         (
